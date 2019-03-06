@@ -1,0 +1,49 @@
+﻿ 
+@model MonCatalogueProduit.Service.Produit
+
+@{ 
+    ViewData["titre"] = "Saisie d'un produit";
+}
+ <p></p>
+ <div class="container col-md-8 col-md-offset-2">
+     <div class="panel panel-primary">
+         <div class="panel-heading">Saisie d'un produit</div>
+         <div class="panel-body">
+             <form method="post" asp-action="SaveProduit">
+                 <div class="form-group">
+                     <label class="control-label">Désignation</label>
+                     <input type="text" name="Designation" value="@Model.Designation" class="form-control" />
+                     @Html.ValidationMessageFor(p => p.Designation, "", new { @class = "text-danger" })
+                 </div>
+
+                 <div class="form-group">
+                     <label class="control-label">Prix</label>
+                     <input type="text" name="Prix" value="@Model.Prix" class="form-control" />
+                     @Html.ValidationMessageFor(p => p.Prix, "", new { @class = "text-danger" })
+                 </div>
+
+                 <div class="form-group">
+                     <label class="control-label">Quantite</label>
+                     <input type="text" name="Quantite" value="@Model.Quantite" class="form-control" />
+                     @Html.ValidationMessageFor(p => p.Quantite, "", new { @class = "text-danger" })
+                 </div>
+
+                 <div class="form-group">
+                     <label class="control-label">Categorie</label>
+                     <select name="CategorieID">
+                         @{
+                             foreach (var c in ViewBag.categories)
+                             {
+                                 <option value="@c.CategorieID">@c.NomCategorie</option>
+                             }
+                         }
+                     </select>
+                 </div>
+
+                 <div>
+                     <button type="submit" class="btn btn-primary">Save</button>
+                 </div>
+             </form>
+         </div>
+     </div>
+ </div>

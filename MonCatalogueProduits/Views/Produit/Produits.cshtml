@@ -1,0 +1,67 @@
+﻿@model IEnumerable<MonCatalogueProduit.Service.Produit>
+
+<p></p>
+
+<div class="container">
+    <a asp-action="FormProduit">Nouveau Produit</a>
+
+</div>
+
+ <div class="col-md-10 col-md-offset-1 col-xs-12">
+     <div class="panel panel-primary">
+         <div class="panel-heading">La liste des produits</div>
+         <div class="panel-body">
+
+             <div class="container">
+                 <form method="get" asp-action="Index">
+                     <label>Mot clé:</label>
+                     <input type="text" name="motCle" value="@ViewBag.motCle"/>
+                     <button type="submit" class="btn btn-primary">Chercher</button>
+                </form>
+             </div>
+
+
+
+             <table class="table table-striped">
+                 <tr>
+                     <th>ID</th>
+                     <th>Designation</th>
+                     <th>Prix</th>
+                     <th>Quantité</th>
+                     <th>Categorie</th>
+                 </tr>
+                 @{ //Lazor syntax
+                     foreach (var p in Model)
+                     {
+                         <tr>
+                             <td>@p.ProduitID</td>
+                             <td>@p.Designation</td>
+                             <td>@p.Prix</td>
+                             <td>@p.Quantite</td>
+                             <td>@p.Categorie.NomCategorie</td>
+                         </tr>
+                     }
+
+                 }
+             </table>
+             <div>
+                 <ul class="nav nav-pills"> 
+                     @{ 
+                         for (int i = 0; i < ViewBag.totalPages ; i++)
+                         {
+                             string className = "";
+                             if (i == ViewBag.currentPage)
+                             {
+                                 className = "active";
+                             }
+
+                             <li class="@className">
+                                 <a asp-action="Index" asp-route-page="@i" asp-route-motCle="@ViewBag.motCle">@i</a>
+                            </li>
+                         }
+                     }
+                 </ul>
+             </div>
+         </div>
+     </div>
+ </div>
